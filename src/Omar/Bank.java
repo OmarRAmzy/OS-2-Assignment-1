@@ -14,7 +14,7 @@ public class Bank
 	int Maximum[][];
 	int Allocation[][];
 	int Need[][];
-	
+	boolean save=true;
 	int Rows , Columns;
 
 	String FileName , S ;
@@ -136,7 +136,6 @@ public class Bank
 		
 	}
 	
-	
 	public void Release (int arr[] , int s)
 	{
 		int index=arr[0];
@@ -174,6 +173,35 @@ public class Bank
 			Available.set(i,temp);
 		}
 		
+		
+	}
+	 
+	public void Request(int arr[])
+	{
+		boolean deadlock=false;
+		
+		for(int i=1;i<arr.length;++i)
+		{
+			if(arr[i]>Available.get(i-1)||arr[i]>Need[arr[0]][i-1])
+			{
+				deadlock=true;
+				save=false;
+				break;
+			}
+		}
+		
+		if(!deadlock)
+		{
+			for(int i=1;i<arr.length;++i)
+			{
+			Need[arr[0]][i-1]-=arr[i];
+			Allocation[arr[0]][i-1]+=arr[i];
+			Available.set(i-1, Available.get(i-1)-arr[i]);
+			}
+			System.out.println("NO deadlock");
+		}
+		else 
+			System.out.println("Process Deadlock");
 		
 	}
 	

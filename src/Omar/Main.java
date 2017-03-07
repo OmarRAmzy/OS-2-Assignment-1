@@ -17,7 +17,7 @@ public class Main {
 		Cin = new Scanner(System.in);
 	 	B = new Bank();
 	 	B.Start();
-	 //	B.Status();
+	    //	B.Status();
 	 	
 	 	s=Cin.nextLine();
 	 	
@@ -35,6 +35,13 @@ public class Main {
 	 	{
 	 		B.Release(array , size);
 	 		B.Status();
+	 	}
+	 	else if(order.equals("Request"))
+	 	{
+	 		B.Status();
+	 		B.Request(array);
+	 		B.Status();
+	 		
 	 	}
 	 	
 	 	
