@@ -3,7 +3,7 @@ package Omar;
 import java.util.Scanner;
 
 public class Main {
-
+    //omar ramzy elahabah
 	private static Scanner Cin;
 	private static Bank B;
 	private static String s ;
