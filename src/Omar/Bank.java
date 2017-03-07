@@ -9,8 +9,8 @@ public class Bank
 {
 	
     ArrayList<Integer> Available =new ArrayList<Integer>() ;
-   
 	int AvailableSize;
+
 	int Maximum[][];
 	int Allocation[][];
 	int Need[][];
@@ -21,6 +21,7 @@ public class Bank
 	Formatter F ;
 	Scanner Cin = new Scanner(System.in);
 	private String [] parts;
+	private int y;
 	
 
 	public Bank()
@@ -36,7 +37,7 @@ public class Bank
 			Available.add(i,Integer.parseInt(parts[i+1])) ;
 		}
 		
-		int Cnt=0 , y;
+		int Cnt=0;
 		try
 		{
 			Cin=new Scanner(new File (FileName));
@@ -68,7 +69,7 @@ public class Bank
 	public void Start ()
 	{
 		
-		System.out.println(Rows+" "+Columns);
+		//System.out.println(Rows+" "+Columns);
 		
 		for(int i=0 ;i<Rows ;i++)
 		{
@@ -103,10 +104,10 @@ public class Bank
 	
 	public void Status ()
 	{
-		System.out.print("Avaiable: ");
+		System.out.println("Avaiable: ");
 		for(int i=0 ;i<AvailableSize ;i++)
 			System.out.print(Available.get(i)+" ");
-		System.out.println();
+		System.out.println("\n");
 		
 		System.out.println("Allocation: ");
 		for(int i=0 ;i<Rows ;i++)
@@ -116,7 +117,7 @@ public class Bank
 			System.out.println();
 		}
 		
-		System.out.println("Need: ");
+		System.out.println("\nNeed: ");
 		for(int i=0 ;i<Rows ;i++)
 		{
 			for(int j=0 ;j<Columns ;j++)
@@ -124,7 +125,7 @@ public class Bank
 			System.out.println();
 		}
 		
-		System.out.println("Maximum Need: ");
+		System.out.println("\nMaximum Need: ");
 		for(int i=0 ;i<Rows ;i++)
 		{
 			for(int j=0 ;j<Columns ;j++)
@@ -133,6 +134,45 @@ public class Bank
 		}
 		
 		
+	}
+	
+	
+	public void Release (int arr[] , int s)
+	{
+		int index=arr[0];
+		Boolean flag = true;
+		int arr2[] = new int[s-1];
+		
+		
+		for(int i=1 ;i<s ;i++)
+		{
+			arr2[i-1]=arr[i];
+		}
+				
+		System.out.println();
+		
+		for(int i=0 ; i<Columns ;i++ )
+		{
+			if(arr2[i]>Allocation[index-1][i])
+			{
+				flag=false;
+				break;
+			}
+		}
+		
+		if(!flag)
+		{
+			System.out.println("Cann't Do The Order!");
+			return;
+		}
+		int temp;
+				
+		for(int i=0 ;i<Columns ;i++)
+		{
+			Allocation[index-1][i]-=arr2[i];
+			temp=Available.get(i)+arr2[i];
+			Available.set(i,temp);
+		}
 		
 		
 	}
