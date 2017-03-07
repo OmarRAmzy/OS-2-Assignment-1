@@ -37,9 +37,18 @@ public class Main {
 	 		B.Status();
 	 	}
 	 	
+	 	if(order.equals("Quit"))
+	 	{
+	 		System.out.println("Exit.");
+	 		System.exit(0);
+	 	}
+	 	
+	 	if(order.equals("Status"))
+	 	{
+	 		B.Status();
+	 	}
 	 	
 	 		
-		
 	 	System.out.println("Finish");
 	 	
 
