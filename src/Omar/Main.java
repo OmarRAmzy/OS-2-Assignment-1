@@ -3,7 +3,7 @@ package Omar;
 import java.util.Scanner;
 
 public class Main {
-    //omar ramzy elahabah
+
 	private static Scanner Cin;
 	private static Bank B;
 	private static String s ;
@@ -17,8 +17,11 @@ public class Main {
 		Cin = new Scanner(System.in);
 	 	B = new Bank();
 	 	B.Start();
-	 //	B.Status();
+	    //	B.Status();
 	 	
+	 	
+	 	System.out.print("Enter Operation: ");
+
 	 	s=Cin.nextLine();
 	 	
 	 	parts = s.split(" ");
@@ -31,10 +34,20 @@ public class Main {
 	 	for(int i=0 ;i<size ;i++)
 	 		array[i]=Integer.parseInt(parts[i+1]);
 	 	
+	 	
 	 	if(order.equals("Release"))
 	 	{
 	 		B.Release(array , size);
 	 		B.Status();
+	 	}
+	 	else if(order.equals("Request"))
+	 	{
+	 		B.Status();
+	 		System.out.println("\n");
+	 		B.Request(array);
+	 		System.out.println("\n");
+	 	//	B.Status();
+	 		
 	 	}
 	 	
 	 	if(order.equals("Quit"))

@@ -14,7 +14,7 @@ public class Bank
 	int Maximum[][];
 	int Allocation[][];
 	int Need[][];
-	
+	boolean save=true;
 	int Rows , Columns;
 
 	String FileName , S ;
@@ -26,7 +26,7 @@ public class Bank
 
 	public Bank()
 	{
-		System.out.print("Enter File name And of Resoursces: ");
+		System.out.print("Enter File name And Number of Resoursces: ");
 		S=Cin.nextLine();
 		parts = S.split(" ");
 		FileName=parts[0];
@@ -50,6 +50,7 @@ public class Bank
 			y=Cin.nextInt();
 			Cnt++;
 		}
+		
 		
 		Cin.close();
 		
@@ -136,7 +137,6 @@ public class Bank
 		
 	}
 	
-	
 	public void Release (int arr[] , int s)
 	{
 		int index=arr[0];
@@ -176,7 +176,59 @@ public class Bank
 		
 		
 	}
-	
-	
+	 
+	public void Request(int arr[])
+	{
+		int ProcsIndex=arr[0]-1;
+		boolean deadlock=false;
+		
+		for(int i=1;i<arr.length;++i)
+		{
+			if(arr[i]>Available.get(i-1)||arr[i]>Need[ProcsIndex][i-1])
+			{
+				deadlock=true;
+				save=false;
+				break;
+			}
+		}
+		
+		if(!deadlock)
+		{
+			for(int i=1;i<arr.length;++i)
+			{
+				Need[ProcsIndex][i-1]-=arr[i];
+				Allocation[ProcsIndex][i-1]+=arr[i];
+				Available.set(i-1, Available.get(i-1)-arr[i]);
+			}
 
+		}
+		if(!deadlock)
+		{
+			for(int i=0 ;i<Rows ;i++)
+			{
+				deadlock=true;
+				for(int j=0 ; j<Columns ;j++)
+				{
+					if(Need[i][j]<=Available.get(j))
+					{
+						Available.set(j,Available.get(j)+ Allocation[i][j] );
+						deadlock=false;
+																
+					}
+			}
+				if(deadlock)
+					break;		
+			}
+		}
+		
+		if(!deadlock){
+			System.out.println("No Deadlock");
+			Status();
+		}
+		else
+			System.out.println("Process Deadlock");
+		
+	}
+
+	
 }
