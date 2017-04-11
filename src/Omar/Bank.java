@@ -206,7 +206,6 @@ public class Bank
 		{
 			for(int i=0 ;i<Rows ;i++)
 			{
-				deadlock=true;
 				for(int j=0 ; j<Columns ;j++)
 				{
 					if(Need[i][j]<=Available.get(j))
@@ -214,6 +213,11 @@ public class Bank
 						Available.set(j,Available.get(j)+ Allocation[i][j] );
 						deadlock=false;
 																
+					}
+					else
+					{
+						deadlock=true;
+						break;	
 					}
 			}
 				if(deadlock)
